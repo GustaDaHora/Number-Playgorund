@@ -1,64 +1,111 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import spaceBg from '../../../assets/space.jpg';
+import SpaceBg from '../../../assets/space.jpg';
 
-const Title = styled.h1`
-  color: #fff;
-  font-size: 24px;
-  text-align: center;
-  z-index: 1;
-`;
-
-const AppWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow: hidden;
-`;
-
-const SpaceContainer = styled.div`
-  position: relative;
+const Container = styled.div`
   width: 100vw;
-  height: 100%;
-  background: url(${spaceBg}) no-repeat center/cover;
-  pointer-events: none;
+  height: 100vh;
+  position: relative;
   overflow: hidden;
-  background-size: 100% auto;
+  perspective: 1000px;
 `;
 
-export const Home: React.FC = () => {
+const Camera = styled.div<{
+  mouseX: number;
+  mouseY: number;
+  zoom: number;
+  rotationX: number;
+  rotationY: number;
+}>`
+  width: 50px;
+  height: 50px;
+  background-color: red;
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  transition: transform 0.2s ease-out;
+  transform: translate(${({ mouseX }) => mouseX}px, ${({ mouseY }) => mouseY}px)
+    rotateX(${({ rotationX }) => rotationX}deg)
+    rotateY(${({ rotationY }) => rotationY}deg) scale(${({ zoom }) => zoom});
+`;
+
+export function Home(): JSX.Element {
+  const [mouseX, setMouseX] = useState(0);
+  const [mouseY, setMouseY] = useState(0);
+  const [zoom, setZoom] = useState(1);
+  const [rotationX, setRotationX] = useState(0);
+  const [rotationY, setRotationY] = useState(0);
+
   useEffect(() => {
-    const moveSpace = (event: MouseEvent) => {
-      const space = document.getElementById('space') as HTMLDivElement;
-      const x = event.clientX;
-      const y = event.clientY;
-
-      const newX = (window.innerWidth / 2 - x) * 0.1;
-      const newY = (window.innerHeight / 2 - y) * 0.1;
-
-      space.style.transform = `translate(${newX}px, ${newY}px)`;
+    const handleMouseMove = (event: MouseEvent) => {
+      setMouseX(event.clientX);
+      setMouseY(event.clientY);
     };
 
-    document.addEventListener('mousemove', moveSpace);
+    document.addEventListener('mousemove', handleMouseMove);
 
     return () => {
-      document.removeEventListener('mousemove', moveSpace);
+      document.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = 'hidden';
+    const handleWheel = (event: WheelEvent) => {
+      const delta = event.deltaY;
+
+      // Increase or decrease the zoom level based on wheel scroll
+      if (delta < 0) {
+        setZoom((prevZoom) => prevZoom + 0.1);
+      } else {
+        setZoom((prevZoom) => Math.max(prevZoom - 0.1, 0.1));
+      }
+    };
+
+    document.addEventListener('wheel', handleWheel);
 
     return () => {
-      document.body.style.overflow = '';
+      document.removeEventListener('wheel', handleWheel);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      const { key } = event;
+
+      // Adjust the rotation based on keyboard input
+      if (key === 'ArrowUp') {
+        setRotationX((prevRotationX) => prevRotationX - 5);
+      } else if (key === 'ArrowDown') {
+        setRotationX((prevRotationX) => prevRotationX + 5);
+      } else if (key === 'ArrowLeft') {
+        setRotationY((prevRotationY) => prevRotationY - 5);
+      } else if (key === 'ArrowRight') {
+        setRotationY((prevRotationY) => prevRotationY + 5);
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
     };
   }, []);
 
   return (
-    <AppWrapper>
-      <Title>Welcome to the Space Page</Title>
-      <SpaceContainer id="space" />
-    </AppWrapper>
+    <Container>
+      <Camera
+        mouseX={mouseX - 25}
+        mouseY={mouseY - 25}
+        zoom={zoom}
+        rotationX={rotationX}
+        rotationY={rotationY}
+      />
+      <img
+        src={SpaceBg}
+        alt="Space Background"
+        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+      />
+    </Container>
   );
-};
+}
