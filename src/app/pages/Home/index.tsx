@@ -1,111 +1,108 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import * as THREE from 'three';
 
-import SpaceBg from '../../../assets/space.jpg';
+// Declare module 'three' to resolve the TypeScript error
+declare module 'three';
 
-const Container = styled.div`
-  width: 100vw;
-  height: 100vh;
-  position: relative;
-  overflow: hidden;
-  perspective: 1000px;
+const Body = styled.div`
+  #app {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #000;
+    margin-top: 60px;
+  }
+
+  canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
 `;
 
-const Camera = styled.div<{
-  mouseX: number;
-  mouseY: number;
-  zoom: number;
-  rotationX: number;
-  rotationY: number;
-}>`
-  width: 50px;
-  height: 50px;
-  background-color: red;
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-  transition: transform 0.2s ease-out;
-  transform: translate(${({ mouseX }) => mouseX}px, ${({ mouseY }) => mouseY}px)
-    rotateX(${({ rotationX }) => rotationX}deg)
-    rotateY(${({ rotationY }) => rotationY}deg) scale(${({ zoom }) => zoom});
-`;
-
-export function Home(): JSX.Element {
-  const [mouseX, setMouseX] = useState(0);
-  const [mouseY, setMouseY] = useState(0);
-  const [zoom, setZoom] = useState(1);
-  const [rotationX, setRotationX] = useState(0);
-  const [rotationY, setRotationY] = useState(0);
+export function Home() {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
-    const handleMouseMove = (event: MouseEvent) => {
-      setMouseX(event.clientX);
-      setMouseY(event.clientY);
-    };
+    // Create the scene and camera
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(
+      75,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      10
+    );
 
-    document.addEventListener('mousemove', handleMouseMove);
+    // Create the renderer and set up the canvas
+    const renderer = new THREE.WebGLRenderer({ canvas: canvasRef.current! });
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    // Set camera position
+    camera.position.setZ(50);
+
+    // Create ambient light
+    const ambientLight = new THREE.AmbientLight(0xffffffff);
+    scene.add(ambientLight);
+
+    // Create a box mesh
+    const geometry = new THREE.BoxGeometry();
+    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+    const box = new THREE.Mesh(geometry, material);
+    box.scale.set(3, 3, 3);
+    scene.add(box);
+
+    // Render the scene with the camera
+    function animate() {
+      box.rotation.y += 0.01;
+      box.rotation.x += 0.01;
+      box.rotation.z += 0.01;
+
+      renderer.render(scene, camera);
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    // Update renderer and camera on window resize
+    function handleResize() {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+
+    window.addEventListener('resize', handleResize);
+
+    // Handle mouse movement
+    let oldX = 0;
+    let oldY = 0;
+
+    function handleMouseMove(ev: MouseEvent) {
+      let changeX = ev.x - oldX;
+      let changeY = ev.y - oldY;
+
+      camera.position.x += changeX / 100;
+      camera.position.y -= changeY / 100;
+
+      oldX = ev.x;
+      oldY = ev.y;
+    }
+
+    window.onmousemove = handleMouseMove;
 
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, []);
-
-  useEffect(() => {
-    const handleWheel = (event: WheelEvent) => {
-      const delta = event.deltaY;
-
-      // Increase or decrease the zoom level based on wheel scroll
-      if (delta < 0) {
-        setZoom((prevZoom) => prevZoom + 0.1);
-      } else {
-        setZoom((prevZoom) => Math.max(prevZoom - 0.1, 0.1));
-      }
-    };
-
-    document.addEventListener('wheel', handleWheel);
-
-    return () => {
-      document.removeEventListener('wheel', handleWheel);
-    };
-  }, []);
-
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      const { key } = event;
-
-      // Adjust the rotation based on keyboard input
-      if (key === 'ArrowUp') {
-        setRotationX((prevRotationX) => prevRotationX - 5);
-      } else if (key === 'ArrowDown') {
-        setRotationX((prevRotationX) => prevRotationX + 5);
-      } else if (key === 'ArrowLeft') {
-        setRotationY((prevRotationY) => prevRotationY - 5);
-      } else if (key === 'ArrowRight') {
-        setRotationY((prevRotationY) => prevRotationY + 5);
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('resize', handleResize);
+      window.onmousemove = null;
     };
   }, []);
 
   return (
-    <Container>
-      <Camera
-        mouseX={mouseX - 25}
-        mouseY={mouseY - 25}
-        zoom={zoom}
-        rotationX={rotationX}
-        rotationY={rotationY}
-      />
-      <img
-        src={SpaceBg}
-        alt="Space Background"
-        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-      />
-    </Container>
+    <Body>
+      <div id="app"></div>
+      <canvas id="bg" ref={canvasRef}></canvas>
+    </Body>
   );
 }
