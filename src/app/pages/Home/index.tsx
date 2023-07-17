@@ -31,12 +31,12 @@ export function Home() {
 
       camera.position.setZ(50);
 
-      const ambl = new THREE.AmbientLight(0xffffff);
+      const ambl = new THREE.AmbientLight(0x97ed8a);
       scene.add(ambl);
 
       box = new THREE.Mesh(
-        new THREE.BoxGeometry(3, 3, 3),
-        new THREE.MeshBasicMaterial({ color: 0xffffff })
+        new THREE.BoxGeometry(4, 4, 4),
+        new THREE.MeshBasicMaterial({ color: 0x97ed8a })
       );
 
       box.scale.set(3, 3, 3);
@@ -65,8 +65,8 @@ export function Home() {
     const handleMouseMove = (ev: MouseEvent) => {
       let changeX = ev.x - oldX;
       let changeY = ev.y - oldY;
-      camera.position.x += changeX / 100;
-      camera.position.y -= changeY / 100;
+      camera.position.x += changeX / 90;
+      camera.position.y -= changeY / 90;
 
       oldX = ev.x;
       oldY = ev.y;
