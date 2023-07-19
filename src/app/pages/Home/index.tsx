@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import * as THREE from 'three';
 import styled from 'styled-components';
 
@@ -10,6 +11,7 @@ const Canvas = styled.canvas`
 
 export function Home() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     let camera: THREE.PerspectiveCamera;
@@ -86,7 +88,11 @@ export function Home() {
     };
   }, []);
 
-  return <Canvas ref={canvasRef} id="bg" />;
+  const handleClick = () => {
+    navigate('/main');
+  };
+
+  return <Canvas onClick={handleClick} ref={canvasRef} id="bg" />;
 }
 
 export default Home;
