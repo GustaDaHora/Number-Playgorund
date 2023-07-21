@@ -10,7 +10,7 @@ export const Container = styled.header`
 
   border-bottom-width: 1px;
   border-bottom-style: solid;
-  border-bottom-color: ${({ theme }) => theme.COLORS.BACKGROUND_700};
+  border-bottom-color: ${({ theme }) => theme.COLORS.BACKGROUND_800};
 
   display: flex;
   justify-content: space-between;
@@ -18,6 +18,6 @@ export const Container = styled.header`
   padding: 0 80px;
 `;
 
-export function Main(): React.ReactElement {
+export function Header(): React.ReactElement {
   return <Container></Container>;
 }
