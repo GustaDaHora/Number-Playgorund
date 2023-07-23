@@ -1,5 +1,5 @@
 {
-  "name": "myreactapp",
+  "name": "dahora-s-ecosystem",
   "$schema": "node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "./src",
   "projectType": "application",
