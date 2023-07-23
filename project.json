@@ -9,7 +9,7 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/myreactapp"
+        "outputPath": "dist/dahora-s-ecosystem"
       },
       "configurations": {
         "development": {
@@ -24,15 +24,15 @@
       "executor": "@nx/vite:dev-server",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "myreactapp:build"
+        "buildTarget": "dahora-s-ecosystem:build"
       },
       "configurations": {
         "development": {
-          "buildTarget": "myreactapp:build:development",
+          "buildTarget": "dahora-s-ecosystem:build:development",
           "hmr": true
         },
         "production": {
-          "buildTarget": "myreactapp:build:production",
+          "buildTarget": "dahora-s-ecosystem:build:production",
           "hmr": false
         }
       }
@@ -41,23 +41,23 @@
       "executor": "@nx/vite:preview-server",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "myreactapp:build"
+        "buildTarget": "dahora-s-ecosystem:build"
       },
       "configurations": {
         "development": {
-          "buildTarget": "myreactapp:build:development"
+          "buildTarget": "dahora-s-ecosystem:build:development"
         },
         "production": {
-          "buildTarget": "myreactapp:build:production"
+          "buildTarget": "dahora-s-ecosystem:build:production"
         }
       }
     },
     "test": {
       "executor": "@nx/vite:test",
-      "outputs": ["coverage/myreactapp"],
+      "outputs": ["coverage/dahora-s-ecosystem"],
       "options": {
         "passWithNoTests": true,
-        "reportsDirectory": "coverage/myreactapp"
+        "reportsDirectory": "coverage/dahora-s-ecosystem"
       }
     },
     "lint": {
@@ -70,7 +70,7 @@
     "serve-static": {
       "executor": "@nx/web:file-server",
       "options": {
-        "buildTarget": "myreactapp:build"
+        "buildTarget": "dahora-s-ecosystem:build"
       }
     }
   },
