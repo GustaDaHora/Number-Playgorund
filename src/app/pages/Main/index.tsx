@@ -16,16 +16,20 @@ const Container = styled.div`
   > div {
     display: flex;
     width: 55%;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
   }
 `;
 const LinkButton = styled(Link)`
-  width: 100%;
-
-  height: 56px;
   border: 3px solid ${({ theme }) => theme.COLORS.WHITE};
-  border-radius: 10px;
-  font-weight: 500;
   color: ${({ theme }) => theme.COLORS.WHITE};
+  padding: 1rem;
+  font-size: 2rem;
+
+  &:hover {
+    color: red;
+  }
 `;
 
 export function Main(): React.ReactElement {
@@ -34,8 +38,8 @@ export function Main(): React.ReactElement {
       <div>
         {' '}
         <LinkButton to="/utilities">Utilidades</LinkButton>
-        <LinkButton title="Em breve" to="" />
-        <LinkButton title="Em breve" to="" />
+        <LinkButton to="">Crônicas</LinkButton>
+        <LinkButton to="">Chat</LinkButton>
       </div>
     </Container>
   );
