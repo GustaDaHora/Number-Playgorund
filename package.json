@@ -15,7 +15,8 @@
     "react-is": "18.2.0",
     "react-router-dom": "^6.14.1",
     "styled-components": "5.3.6",
-    "three": "^0.154.0"
+    "three": "^0.154.0",
+    "tsconfig-paths": "^4.2.0"
   },
   "devDependencies": {
     "@nx/cypress": "16.5.1",
