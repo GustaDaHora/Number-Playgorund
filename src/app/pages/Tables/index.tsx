@@ -1,47 +1,38 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  margin: 2vh 0vh;
-  max-width: 80vh;
-`;
+  width: 100%;
+  height: 100vh;
+  background-color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
 
-const AppHeader = styled.h1`
-  font: bold 5vh Arial, Helvetica, sans-serif;
-  color: whitesmoke;
-  text-align: center;
-  margin: 5vh;
-`;
+  h1 {
+    color: ${({ theme }) => theme.COLORS.WHITE};
+    text-align: center;
+    margin: 3vh;
+  }
 
-const AppSection = styled.section`
-  position: relative;
-  left: 50%;
-  transform: translate(-50%, 0%);
-  width: 80vh;
-  padding: 5vh;
-  margin: 5vh 0vh;
-  color: black;
-  background-color: whitesmoke;
-  border-radius: 10px;
-  box-shadow: 4px 4px 4px #0000006b;
-`;
+  section {
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    width: 30%;
+    padding: 5vh;
+    background-color: ${({ theme }) => theme.COLORS.WHITE};
+    color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
+    font-weight: 800;
+    border-radius: 10px;
+  }
 
-const TabuadaInput = styled.input`
-  width: 18vh;
-`;
-
-const TabuadaButton = styled.input`
-  margin: 1vh 0vh 1vh 6vh;
-`;
-
-const AppFooter = styled.footer`
-  font: bold 3vh Arial, Helvetica, sans-serif;
-  color: whitesmoke;
-  background-color: #375066;
-  position: relative;
-  bottom: 0px;
-  text-align: center;
-  padding: 5vh;
+  footer {
+    color: ${({ theme }) => theme.COLORS.WHITE};
+    background-color: ${({ theme }) => theme.COLORS.BACKGROUND_800};
+    position: absolute;
+    bottom: 0px;
+    text-align: center;
+    width: 100%;
+    padding: 3vh;
+  }
 `;
 
 const TabuadaSelect = styled.select`
@@ -50,6 +41,9 @@ const TabuadaSelect = styled.select`
   transform: translate(-50%, 0);
   text-align: center;
   overflow-y: hidden;
+  width: 30%;
+  font-size: 1rem;
+  margin-top: 0.8rem;
 `;
 
 export function Tables() {
@@ -69,36 +63,33 @@ export function Tables() {
       c++;
     }
 
+    useEffect(() => {
+      setNum(1); // Set the default value for num when the component mounts
+    }, []);
+
     return options;
   };
 
   return (
-    <>
-      <AppHeader>Tabuada</AppHeader>
-      <AppSection>
-        <Container>
-          <p>
-            Numero:{' '}
-            <TabuadaInput
-              type="number"
-              id="numero"
-              value={num}
-              onChange={(e) => setNum(e.target.value)}
-            />{' '}
-            <TabuadaButton
-              type="button"
-              value="Gerar Tabuada"
-              onClick={tabuada}
-            />
-          </p>
-        </Container>
+    <Container>
+      <h1>Tabuada</h1>
+      <section>
+        <p>
+          Numero:{' '}
+          <input
+            type="number"
+            id="numero"
+            value={num}
+            onChange={(e) => setNum(e.target.value)}
+          />{' '}
+        </p>
         <div>
-          <TabuadaSelect name="tabuada" id="seltab" size={20}>
+          <TabuadaSelect name="tabuada" id="seltab" size={10}>
             {tabuada()}
           </TabuadaSelect>
         </div>
-      </AppSection>
-      <AppFooter>&copy;daHora</AppFooter>
-    </>
+      </section>
+      <footer>&copy;daHora</footer>
+    </Container>
   );
 }
