@@ -33,6 +33,31 @@ const Container = styled.div`
     width: 100%;
     padding: 3vh;
   }
+
+  @media (max-width: 768px) {
+    /* Styles for smaller screen sizes (e.g., smartphones) */
+    section {
+      width: 80%;
+      padding: 3vh;
+    }
+
+    /* Adjust the font size for smaller screens */
+    h1 {
+      font-size: 1.5rem;
+    }
+
+    /* Adjust the font size and margin for smaller screens */
+    p {
+      font-size: 0.8rem;
+      margin: 1vh 0;
+    }
+
+    /* Adjust the width and font size for smaller screens */
+    TabuadaSelect {
+      width: 80%;
+      font-size: 0.8rem;
+    }
+  }
 `;
 
 const TabuadaSelect = styled.select`
@@ -44,6 +69,11 @@ const TabuadaSelect = styled.select`
   width: 30%;
   font-size: 1rem;
   margin-top: 0.8rem;
+
+  @media (max-width: 768px) {
+    /* Adjust the width for smaller screens */
+    width: 80%;
+  }
 `;
 
 export function Tables() {
@@ -63,12 +93,13 @@ export function Tables() {
       c++;
     }
 
-    useEffect(() => {
-      setNum(1); // Set the default value for num when the component mounts
-    }, []);
-
     return options;
   };
+
+  useEffect(() => {
+    // Set the default value for num when the component mounts
+    setNum(''); // You can set a default value here if needed
+  }, []);
 
   return (
     <Container>

@@ -20,15 +20,41 @@ const Container = styled.div`
     justify-content: center;
     gap: 1rem;
   }
+
+  @media (max-width: 768px) {
+    /* Styles for smaller screen sizes (e.g., smartphones) */
+    flex-direction: column;
+    > div {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
 `;
+
 const LinkButton = styled(Link)`
   border: 3px solid ${({ theme }) => theme.COLORS.WHITE};
   color: ${({ theme }) => theme.COLORS.WHITE};
   padding: 1rem;
   font-size: 2rem;
+  transition: 1s;
 
   &:hover {
     color: red;
+    padding: 1.5rem;
+    transition: 1s;
+  }
+
+  @media (max-width: 768px) {
+    /* Adjust the font size for smaller screens */
+    font-size: 1.5rem;
+
+    /* Adjust the padding for smaller screens */
+    padding: 0.8rem;
+
+    /* Adjust the hover padding for smaller screens */
+    &:hover {
+      padding: 1rem;
+    }
   }
 `;
 
