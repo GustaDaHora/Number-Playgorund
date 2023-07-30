@@ -3,8 +3,12 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   width: 100%;
-  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  box-sizing: border-box;
   background-color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
+  justify-content: space-between;
 
   h1 {
     color: ${({ theme }) => theme.COLORS.WHITE};
@@ -27,11 +31,12 @@ const Container = styled.div`
   footer {
     color: ${({ theme }) => theme.COLORS.WHITE};
     background-color: ${({ theme }) => theme.COLORS.BACKGROUND_800};
-    position: absolute;
+    position: relative;
     bottom: 0px;
     text-align: center;
     width: 100%;
     padding: 3vh;
+    margin-top: 0.5rem;
   }
 
   @media (max-width: 768px) {
@@ -60,13 +65,13 @@ const Container = styled.div`
   }
 `;
 
-const TabuadaSelect = styled.select`
+const ResultContainer = styled.div`
   position: relative;
   left: 50%;
   transform: translate(-50%, 0);
   text-align: center;
   overflow-y: hidden;
-  width: 30%;
+  width: 50%;
   font-size: 1rem;
   margin-top: 0.8rem;
 
@@ -78,27 +83,26 @@ const TabuadaSelect = styled.select`
 
 export function Tables() {
   const [num, setNum] = useState<number | string>('');
+  const [limit, setLimit] = useState<number | string>('50');
 
   const tabuada = () => {
     const n = Number(num);
+    const tableLimit = Number(limit);
     let c = 1;
-    const options: React.ReactNode[] = [];
+    const results: React.ReactNode[] = [];
 
-    while (c <= 50) {
-      options.push(
-        <option key={c} value={c}>
-          {`${n} x ${c} = ${n * c}`}
-        </option>
-      );
+    while (c <= tableLimit) {
+      results.push(<p key={c}>{`${n} x ${c} = ${n * c}`}</p>);
       c++;
     }
 
-    return options;
+    return results;
   };
 
   useEffect(() => {
-    // Set the default value for num when the component mounts
-    setNum(''); // You can set a default value here if needed
+    // Set the default values for num and limit when the component mounts
+    setNum('');
+    setLimit('50');
   }, []);
 
   return (
@@ -112,13 +116,18 @@ export function Tables() {
             id="numero"
             value={num}
             onChange={(e) => setNum(e.target.value)}
-          />{' '}
+          />
         </p>
-        <div>
-          <TabuadaSelect name="tabuada" id="seltab" size={10}>
-            {tabuada()}
-          </TabuadaSelect>
-        </div>
+        <p>
+          Limite:{' '}
+          <input
+            type="number"
+            id="limit"
+            value={limit}
+            onChange={(e) => setLimit(e.target.value)}
+          />
+        </p>
+        <ResultContainer>{tabuada()}</ResultContainer>
       </section>
       <footer>&copy;daHora</footer>
     </Container>
