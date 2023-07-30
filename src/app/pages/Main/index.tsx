@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Button } from '../../components/Button';
-import { Link } from 'react-router-dom';
+import LinkButton from 'src/app/components/Link';
 
 // Styled components for the main page
 const Container = styled.div`
@@ -27,33 +26,6 @@ const Container = styled.div`
     > div {
       flex-direction: column;
       gap: 0.5rem;
-    }
-  }
-`;
-
-const LinkButton = styled(Link)`
-  border: 3px solid ${({ theme }) => theme.COLORS.WHITE};
-  color: ${({ theme }) => theme.COLORS.WHITE};
-  padding: 1rem;
-  font-size: 2rem;
-  transition: 1s;
-
-  &:hover {
-    color: red;
-    padding: 1.5rem;
-    transition: 1s;
-  }
-
-  @media (max-width: 768px) {
-    /* Adjust the font size for smaller screens */
-    font-size: 1.5rem;
-
-    /* Adjust the padding for smaller screens */
-    padding: 0.8rem;
-
-    /* Adjust the hover padding for smaller screens */
-    &:hover {
-      padding: 1rem;
     }
   }
 `;

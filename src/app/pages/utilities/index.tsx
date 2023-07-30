@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
+import LinkButton from 'src/app/components/Link';
+
 // Styled components for the main page
 const Container = styled.div`
   width: 100%;
@@ -17,19 +19,6 @@ const Container = styled.div`
     align-items: center;
     justify-content: center;
     gap: 1rem;
-  }
-`;
-const LinkButton = styled(Link)`
-  border: 3px solid ${({ theme }) => theme.COLORS.WHITE};
-  color: ${({ theme }) => theme.COLORS.WHITE};
-  padding: 1rem;
-  font-size: 2rem;
-  transition: 1s;
-
-  &:hover {
-    color: red;
-    padding: 1.5rem;
-    transition: 1s;
   }
 `;
 
