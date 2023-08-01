@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Header } from 'src/app/components/Header';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -13,7 +14,6 @@ const Container = styled.div`
   h1 {
     color: ${({ theme }) => theme.COLORS.WHITE};
     text-align: center;
-    margin: 3vh;
   }
 
   section {
@@ -102,11 +102,12 @@ export function Tables() {
   useEffect(() => {
     // Set the default values for num and limit when the component mounts
     setNum('');
-    setLimit('50');
+    setLimit('10');
   }, []);
 
   return (
     <Container>
+      <Header />
       <h1>Tabuada</h1>
       <section>
         <p>
