@@ -36,7 +36,7 @@ export function Main(): React.ReactElement {
       <div>
         {' '}
         <LinkButton to="/utilities">Utilidades</LinkButton>
-        <LinkButton to="">Crônicas</LinkButton>
+        <LinkButton to="/cronics">Crônicas</LinkButton>
         <LinkButton to="">Chat</LinkButton>
       </div>
     </Container>
