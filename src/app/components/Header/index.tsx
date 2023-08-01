@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import { BiArrowBack } from 'react-icons/bi';
 
-// Styled components for the main page
+import LinkButton from '../Link';
+
 export const Container = styled.header`
   grid-area: header;
 
-  height: 105px;
   width: 100%;
 
   border-bottom-width: 1px;
@@ -19,5 +20,11 @@ export const Container = styled.header`
 `;
 
 export function Header(): React.ReactElement {
-  return <Container></Container>;
+  return (
+    <Container>
+      <LinkButton to="/main">
+        <BiArrowBack />
+      </LinkButton>
+    </Container>
+  );
 }
