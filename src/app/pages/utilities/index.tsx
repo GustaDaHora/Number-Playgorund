@@ -6,17 +6,26 @@ import { Header } from 'src/app/components/Header';
 
 const Container = styled.div`
   width: 100%;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  min-height: 100vh;
+  box-sizing: border-box;
   background-color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
+  justify-content: space-between;
+
+  display: grid;
+  place-items: center;
+  grid-template-rows: 80px 128px auto 64px;
+  grid-template-areas:
+    'header header'
+    'content content';
+
+  > Header {
+    grid-area: header;
+  }
 
   > div {
+    grid-area: content;
     display: flex;
-    width: 55%;
-    align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     gap: 1rem;
   }
 `;
@@ -25,7 +34,11 @@ export function Utilities(): React.ReactElement {
   return (
     <Container>
       <Header />
-      <LinkButton to="/tables">Tabuada</LinkButton>
+      <div>
+        {' '}
+        <LinkButton to="/tables">Tabuada</LinkButton>
+        <LinkButton to="/">Em Breve</LinkButton>
+      </div>
     </Container>
   );
 }
