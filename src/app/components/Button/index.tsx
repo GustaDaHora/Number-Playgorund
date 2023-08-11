@@ -1,34 +1,29 @@
 import React from 'react';
 import styled from 'styled-components';
 
-interface ButtonProps {
-  title: string;
-  loading?: boolean;
-}
+const Button = styled.button`
+  border: 3px solid ${({ theme }) => theme.COLORS.WHITE};
+  color: ${({ theme }) => theme.COLORS.WHITE};
+  padding: 1rem;
+  font-size: 2rem;
+  transition: 1s;
+  background-color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
 
-const Container = styled.button`
-  width: 100%;
-  color: ${({ theme }) => theme.COLORS.BACKGROUND_800};
-  height: 56px;
-  border: 0;
-  padding: 0 16px;
-  margin-top: 16px;
-  border-radius: 10px;
-  font-weight: 500;
+  &:hover {
+    color: red;
+    padding: 1.5rem;
+    transition: 1s;
+  }
 
-  &:disabled {
-    opacity: 0.5;
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+
+    padding: 0.8rem;
+
+    &:hover {
+      padding: 1rem;
+    }
   }
 `;
 
-export function Button({
-  title,
-  loading = false,
-  ...rest
-}: ButtonProps): React.ReactElement {
-  return (
-    <Container type="button" disabled={loading} {...rest}>
-      {loading ? 'Carregando...' : title}
-    </Container>
-  );
-}
+export default Button;
