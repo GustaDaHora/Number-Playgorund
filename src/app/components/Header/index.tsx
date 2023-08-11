@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 import { BiArrowBack } from 'react-icons/bi';
 
@@ -18,13 +18,18 @@ export const Container = styled.header`
 
   padding: 0 80px;
 `;
+interface HeaderProps {
+  children: ReactNode; // This prop will hold the child components
+}
 
-export function Header(): React.ReactElement {
+export function Header({ children }: HeaderProps): React.ReactElement {
   return (
     <Container>
+      {' '}
       <LinkButton to="/main">
         <BiArrowBack />
       </LinkButton>
+      {children}
     </Container>
   );
 }
