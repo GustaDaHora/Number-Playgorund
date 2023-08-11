@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
+import { AiOutlineMenu } from 'react-icons/ai';
 import LinkButton from 'src/app/components/Link';
+import Button from 'src/app/components/Button';
 import { Header } from 'src/app/components/Header';
 
 const Container = styled.div`
@@ -23,6 +25,7 @@ const Container = styled.div`
     padding: 20px;
   }
   > section {
+    text-align: center;
     grid-row: 2;
     grid-column: 1;
     padding: 20px;
@@ -37,21 +40,63 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
   }
+
+  #toggleButton {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    #toggleButton {
+      display: block;
+    }
+
+    > header,
+    section {
+      grid-column: 1;
+    }
+  }
 `;
 
 export function Cronics(): React.ReactElement {
+  const [isSideMenuVisible, setIsSideMenuVisible] = useState<boolean>(true);
+
+  function toggleAside() {
+    setIsSideMenuVisible((prevIsVisible) => !prevIsVisible);
+  }
+  useEffect(() => {
+    const screenWidth = window.innerWidth;
+    setIsSideMenuVisible(screenWidth > 768);
+
+    const handleResize = () => {
+      const newScreenWidth = window.innerWidth;
+      setIsSideMenuVisible(newScreenWidth > 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
   return (
     <Container>
-      <Header />
+      <Header>
+        <Button onClick={toggleAside}>
+          <AiOutlineMenu />
+        </Button>
+      </Header>
       <section>
         <LinkButton to="/">Em Breve</LinkButton>
         <LinkButton to="/">Em Breve</LinkButton>
         <LinkButton to="/">Em Breve</LinkButton>
         <LinkButton to="/">Em Breve</LinkButton>
       </section>
-      <aside>
-        <LinkButton to="/">Em Breve</LinkButton>
-      </aside>
+      {isSideMenuVisible && (
+        <aside>
+          <LinkButton to="/">Em Breve</LinkButton>
+        </aside>
+      )}
     </Container>
   );
 }
