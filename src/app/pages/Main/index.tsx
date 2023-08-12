@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 import LinkButton from 'src/app/components/Link';
 
-// Styled components for the main page
 const Container = styled.div`
   width: 100%;
   height: 100vh;
@@ -21,7 +20,6 @@ const Container = styled.div`
   }
 
   @media (max-width: 768px) {
-    /* Styles for smaller screen sizes (e.g., smartphones) */
     flex-direction: column;
     > div {
       flex-direction: column;
