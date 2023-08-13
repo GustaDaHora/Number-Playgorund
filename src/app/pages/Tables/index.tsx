@@ -81,7 +81,7 @@ const ResultContainer = styled.div`
   }
 `;
 
-export function Tables() {
+export function Tables(): React.ReactElement {
   const [num, setNum] = useState<number | string>('');
   const [limit, setLimit] = useState<number | string>('50');
 
@@ -107,7 +107,7 @@ export function Tables() {
 
   return (
     <Container>
-      <Header />
+      <Header children={undefined}></Header>
       <h1>Tabuada</h1>
       <section>
         <p>
