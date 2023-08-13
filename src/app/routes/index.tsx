@@ -5,6 +5,7 @@ import { Main } from '../pages/Main';
 import { Utilities } from '../pages/Utilities';
 import { Tables } from '../pages/Tables';
 import { Cronics } from '../pages/Cronics';
+import { Check } from '../pages/Check';
 
 export function AppRoutes() {
   return (
@@ -14,6 +15,7 @@ export function AppRoutes() {
       <Route path="/utilities" element={<Utilities />} />
       <Route path="/tables" element={<Tables />} />
       <Route path="/cronics" element={<Cronics />} />
+      <Route path="/check" element={<Check />} />
     </Routes>
   );
 }

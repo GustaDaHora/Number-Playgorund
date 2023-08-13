@@ -33,11 +33,11 @@ const Container = styled.div`
 export function Utilities(): React.ReactElement {
   return (
     <Container>
-      <Header />
+      <Header children={undefined} />
       <div>
         {' '}
         <LinkButton to="/tables">Tabuada</LinkButton>
-        <LinkButton to="/">Em Breve</LinkButton>
+        <LinkButton to="/check">Analisador</LinkButton>
       </div>
     </Container>
   );

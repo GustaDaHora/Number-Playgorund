@@ -36,7 +36,7 @@ const ResultContainer = styled.div`
   margin: 4vh;
 `;
 
-export function Tables(): React.ReactElement {
+export function Check(): React.ReactElement {
   const [valores, setValores] = useState<number[]>([]);
   const [inputValue, setInputValue] = useState('');
 
