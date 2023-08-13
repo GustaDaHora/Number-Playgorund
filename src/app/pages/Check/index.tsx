@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Header } from 'src/app/components/Header';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -31,22 +32,6 @@ const Container = styled.div`
   }
 `;
 
-const Header = styled.header`
-  font: bold 5vh Arial, Helvetica, sans-serif;
-  color: whitesmoke;
-  text-align: center;
-  margin: 5vh;
-`;
-
-const NumberInput = styled.input`
-  width: 22vh;
-`;
-
-const SelectList = styled.select`
-  margin: 1vh 50vh 1vh 1vh;
-  width: 35vh;
-`;
-
 const ResultContainer = styled.div`
   margin: 4vh;
 `;
@@ -60,12 +45,12 @@ export function Tables(): React.ReactElement {
     return num >= 1 && num <= 100;
   };
 
-  const inLista = (n: string, l: number[]): boolean => {
+  const inList = (n: string, l: number[]): boolean => {
     return l.indexOf(Number(n)) !== -1;
   };
 
   const adicionar = () => {
-    if (isNumero(inputValue) && !inLista(inputValue, valores)) {
+    if (isNumero(inputValue) && !inList(inputValue, valores)) {
       const newValue = Number(inputValue);
       setValores([...valores, newValue]);
       setInputValue('');
@@ -93,24 +78,22 @@ export function Tables(): React.ReactElement {
       <Header>
         <h1>Analisador de números</h1>
       </Header>
-      <MainSection>
+      <section>
         <div className="test">
           <p>
             Numero entre 1 e 100:{' '}
-            <NumberInput
+            <input
               type="number"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
             />{' '}
             <input type="button" value="ADICIONAR" onClick={adicionar} />
           </p>
-          <SelectList name="lista" size={10}>
-            {/* Render options here */}
-          </SelectList>
+          <div>{/* Render options here */}</div>
           <input type="button" value="FINALIZAR" onClick={finalizar} />
         </div>
         <ResultContainer>{/* Render results here */}</ResultContainer>
-      </MainSection>
+      </section>
       <footer>&copy;daHora</footer>
     </Container>
   );
