@@ -38,28 +38,17 @@ const ResultContainer = styled.div`
 
 export function Check(): React.ReactElement {
   const [valores, setValores] = useState<number[]>([]);
-  const [inputValue, setInputValue] = useState('');
+  const [firstInputValue, setFirstInputValue] = useState('');
+  const [secInputValue, setSecInputValue] = useState('');
+  const [resultValues, setResultValues] = useState({
+    total: 0,
+    maior: 0,
+    menor: 0,
+    soma: 0,
+    media: 0,
+  });
 
-  const isNumero = (n: string): boolean => {
-    const num = Number(n);
-    return num >= 1 && num <= 100;
-  };
-
-  const inList = (n: string, l: number[]): boolean => {
-    return l.indexOf(Number(n)) !== -1;
-  };
-
-  const adicionar = () => {
-    if (isNumero(inputValue) && !inList(inputValue, valores)) {
-      const newValue = Number(inputValue);
-      setValores([...valores, newValue]);
-      setInputValue('');
-    } else {
-      window.alert('Valor inválido');
-    }
-  };
-
-  const finalizar = () => {
+  const result = () => {
     if (valores.length === 0) {
       window.alert('Adicione números');
     } else {
@@ -69,7 +58,13 @@ export function Check(): React.ReactElement {
       const soma = valores.reduce((acc, curr) => acc + curr, 0);
       const media = soma / total;
 
-      // Update your UI with the results here
+      setResultValues({
+        total,
+        maior,
+        menor,
+        soma,
+        media,
+      });
     }
   };
 
@@ -84,15 +79,27 @@ export function Check(): React.ReactElement {
             Numero entre 1 e 100:{' '}
             <input
               type="number"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
+              value={firstInputValue}
+              onChange={(e) => setFirstInputValue(e.target.value)}
             />{' '}
-            <input type="button" value="ADICIONAR" onClick={adicionar} />
+            <input
+              type="button"
+              value={secInputValue}
+              onChange={(e) => setSecInputValue(e.target.value)}
+            />
           </p>
-          <div>{/* Render options here */}</div>
-          <input type="button" value="FINALIZAR" onClick={finalizar} />
+          <input type="button" value="FINALIZAR" onClick={result} />
         </div>
-        <ResultContainer>{/* Render results here */}</ResultContainer>
+        <ResultContainer>
+          <div>
+            <h2>Resultados:</h2>
+            <p>Total de números: {resultValues.total}</p>
+            <p>Maior número: {resultValues.maior}</p>
+            <p>Menor número: {resultValues.menor}</p>
+            <p>Soma de todos os números: {resultValues.soma}</p>
+            <p>Média dos números: {resultValues.media}</p>
+          </div>
+        </ResultContainer>{' '}
       </section>
       <footer>&copy;daHora</footer>
     </Container>
