@@ -32,41 +32,68 @@ const Container = styled.div`
   }
 `;
 
-const ResultContainer = styled.div`
-  margin: 4vh;
-`;
-
 export function Check(): React.ReactElement {
-  const [valores, setValores] = useState<number[]>([]);
-  const [firstInputValue, setFirstInputValue] = useState('');
-  const [secInputValue, setSecInputValue] = useState('');
-  const [resultValues, setResultValues] = useState({
-    total: 0,
-    maior: 0,
-    menor: 0,
-    soma: 0,
-    media: 0,
-  });
+  let num = document.querySelector('input#number') as HTMLInputElement;
+  let lista = document.querySelector('select#lista') as HTMLSelectElement;
+  let res = document.querySelector('div#result') as HTMLDivElement;
+  let valores: number[] = [];
 
-  const result = () => {
-    if (valores.length === 0) {
-      window.alert('Adicione números');
+  function isNumero(n: string): boolean {
+    if (Number(n) >= 1 && Number(n) <= 100) {
+      return true;
     } else {
-      const total = valores.length;
-      const maior = Math.max(...valores);
-      const menor = Math.min(...valores);
-      const soma = valores.reduce((acc, curr) => acc + curr, 0);
-      const media = soma / total;
-
-      setResultValues({
-        total,
-        maior,
-        menor,
-        soma,
-        media,
-      });
+      return false;
     }
-  };
+  }
+
+  function inLista(n: string, l: number[]): boolean {
+    if (l.indexOf(Number(n)) != -1) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function adicionar(): void {
+    if (isNumero(num.value) && !inLista(num.value, valores)) {
+      valores.push(Number(num.value));
+      let item = document.createElement('option');
+      item.text = `Valor ${num.value} adicionado`;
+      lista.appendChild(item);
+      res.innerHTML = '';
+    } else {
+      window.alert('Valor inválido');
+    }
+    num.value = '';
+    num.focus();
+  }
+
+  function finalizar(): void {
+    if (valores.length == 0) {
+      window.alert('Adicione um número');
+    } else {
+      let total = valores.length;
+      let maior = valores[0];
+      let menor = valores[0];
+      let soma = 0;
+      let media = 0;
+
+      for (let pos in valores) {
+        soma += valores[pos];
+        if (valores[pos] > maior) maior = valores[pos];
+        if (valores[pos] < menor) menor = valores[pos];
+      }
+
+      media = soma / total;
+
+      res.innerHTML = '';
+      res.innerHTML += `<p>Ao todo temos ${total} números adicionados</p>`;
+      res.innerHTML += `<p>O maior número foi ${maior}</p>`;
+      res.innerHTML += `<p>O menor número foi ${menor}</p>`;
+      res.innerHTML += `<p>Somando os valores temos ${soma}</p>`;
+      res.innerHTML += `<p>A média foi ${media.toFixed(2)}</p>`;
+    }
+  }
 
   return (
     <Container>
@@ -74,32 +101,15 @@ export function Check(): React.ReactElement {
         <h1>Analisador de números</h1>
       </Header>
       <section>
-        <div className="test">
+        <div>
           <p>
-            Numero entre 1 e 100:{' '}
-            <input
-              type="number"
-              value={firstInputValue}
-              onChange={(e) => setFirstInputValue(e.target.value)}
-            />{' '}
-            <input
-              type="button"
-              value={secInputValue}
-              onChange={(e) => setSecInputValue(e.target.value)}
-            />
+            Numero entre 1 e 100: <input type="number" id="number" />
+            <input type="button" value="ADICIONAR" onClick={adicionar} />
           </p>
-          <input type="button" value="FINALIZAR" onClick={result} />
+          <select name="lista" id="lista"></select>
+          <input type="button" value="FINALIZAR" onClick={finalizar} />
         </div>
-        <ResultContainer>
-          <div>
-            <h2>Resultados:</h2>
-            <p>Total de números: {resultValues.total}</p>
-            <p>Maior número: {resultValues.maior}</p>
-            <p>Menor número: {resultValues.menor}</p>
-            <p>Soma de todos os números: {resultValues.soma}</p>
-            <p>Média dos números: {resultValues.media}</p>
-          </div>
-        </ResultContainer>{' '}
+        <div id="result"></div>
       </section>
       <footer>&copy;daHora</footer>
     </Container>
