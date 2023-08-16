@@ -8,8 +8,12 @@ const Container = styled.div`
   flex-direction: column;
   min-height: 100vh;
   box-sizing: border-box;
-  background-color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
   justify-content: space-between;
+  background: radial-gradient(
+    circle at top right,
+    ${({ theme }) => theme.COLORS.BACKGROUND_700} 0%,
+    ${({ theme }) => theme.COLORS.BACKGROUND_900} 70%
+  );
 
   h1 {
     color: ${({ theme }) => theme.COLORS.WHITE};
