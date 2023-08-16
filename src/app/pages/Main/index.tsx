@@ -9,7 +9,11 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
+  background: radial-gradient(
+    circle at top right,
+    ${({ theme }) => theme.COLORS.BACKGROUND_700} 0%,
+    ${({ theme }) => theme.COLORS.BACKGROUND_900} 70%
+  );
 
   > div {
     display: flex;
