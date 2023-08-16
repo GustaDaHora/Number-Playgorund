@@ -10,7 +10,11 @@ const Container = styled.div`
   width: 100%;
   min-height: 100vh;
   box-sizing: border-box;
-  background-color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
+  background: radial-gradient(
+    circle at top right,
+    ${({ theme }) => theme.COLORS.BACKGROUND_700} 0%,
+    ${({ theme }) => theme.COLORS.BACKGROUND_900} 70%
+  );
 
   display: grid;
   grid-template-rows: auto 1fr;
@@ -39,10 +43,7 @@ const Container = styled.div`
     padding: 20px;
     display: flex;
     flex-direction: column;
-  }
-
-  #toggleButton {
-    display: none;
+    color: #0d100d;
   }
 
   @media (max-width: 768px) {
