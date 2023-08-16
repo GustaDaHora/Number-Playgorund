@@ -3,20 +3,13 @@ import { Header } from 'src/app/components/Header';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  margin: 0;
-  padding: 0;
-  font: 3vh Arial, Helvetica, sans-serif;
-
-  footer {
-    color: ${({ theme }) => theme.COLORS.WHITE};
-    background-color: ${({ theme }) => theme.COLORS.BACKGROUND_800};
-    position: relative;
-    bottom: 0px;
-    text-align: center;
-    width: 100%;
-    padding: 3vh;
-    margin-top: 0.5rem;
-  }
+  width: 100%;
+  min-height: 100vh;
+  background: radial-gradient(
+    circle at top right,
+    ${({ theme }) => theme.COLORS.BACKGROUND_700} 0%,
+    ${({ theme }) => theme.COLORS.BACKGROUND_900} 70%
+  );
 
   section {
     position: relative;
@@ -30,86 +23,96 @@ const Container = styled.div`
     border-radius: 10px;
     box-shadow: 4px 4px 4px #0000006b;
   }
+
+  footer {
+    color: ${({ theme }) => theme.COLORS.WHITE};
+    background-color: ${({ theme }) => theme.COLORS.BACKGROUND_800};
+    position: absolute;
+    bottom: 0px;
+    text-align: center;
+    width: 100%;
+    padding: 3vh;
+    margin-top: 0.5rem;
+  }
 `;
 
 export function Check(): React.ReactElement {
-  let num = document.querySelector('input#number') as HTMLInputElement;
-  let lista = document.querySelector('select#lista') as HTMLSelectElement;
-  let res = document.querySelector('div#result') as HTMLDivElement;
-  let valores: number[] = [];
+  const [valores, setValores] = useState<number[]>([]);
+  const [resultText, setResultText] = useState<string>('');
 
-  function isNumero(n: string): boolean {
-    if (Number(n) >= 1 && Number(n) <= 100) {
-      return true;
+  function toggleValue(value: number): void {
+    if (valores.includes(value)) {
+      setValores(valores.filter((item) => item !== value));
     } else {
-      return false;
+      setValores([...valores, value]);
     }
+    setResultText('');
   }
 
-  function inLista(n: string, l: number[]): boolean {
-    if (l.indexOf(Number(n)) != -1) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  function adicionar(): void {
-    if (isNumero(num.value) && !inLista(num.value, valores)) {
-      valores.push(Number(num.value));
-      let item = document.createElement('option');
-      item.text = `Valor ${num.value} adicionado`;
-      lista.appendChild(item);
-      res.innerHTML = '';
+  function adicionar(num: number): void {
+    if (num >= 1 && num <= 100 && !valores.includes(num)) {
+      setValores([...valores, num]);
+      setResultText('');
     } else {
       window.alert('Valor inválido');
     }
-    num.value = '';
-    num.focus();
   }
 
   function finalizar(): void {
-    if (valores.length == 0) {
+    if (valores.length === 0) {
       window.alert('Adicione um número');
     } else {
-      let total = valores.length;
-      let maior = valores[0];
-      let menor = valores[0];
-      let soma = 0;
-      let media = 0;
+      const total = valores.length;
+      const maior = Math.max(...valores);
+      const menor = Math.min(...valores);
+      const soma = valores.reduce((acc, curr) => acc + curr, 0);
+      const media = soma / total;
 
-      for (let pos in valores) {
-        soma += valores[pos];
-        if (valores[pos] > maior) maior = valores[pos];
-        if (valores[pos] < menor) menor = valores[pos];
-      }
-
-      media = soma / total;
-
-      res.innerHTML = '';
-      res.innerHTML += `<p>Ao todo temos ${total} números adicionados</p>`;
-      res.innerHTML += `<p>O maior número foi ${maior}</p>`;
-      res.innerHTML += `<p>O menor número foi ${menor}</p>`;
-      res.innerHTML += `<p>Somando os valores temos ${soma}</p>`;
-      res.innerHTML += `<p>A média foi ${media.toFixed(2)}</p>`;
+      setResultText(
+        `Ao todo temos ${total} números adicionados\n` +
+          `O maior número foi ${maior}\n` +
+          `O menor número foi ${menor}\n` +
+          `Somando os valores temos ${soma}\n` +
+          `A média foi ${media.toFixed(2)}`
+      );
     }
   }
 
   return (
     <Container>
-      <Header>
-        <h1>Analisador de números</h1>
-      </Header>
+      <Header children={undefined} />
+      <h1>Analisador de números</h1>
       <section>
         <div>
           <p>
             Numero entre 1 e 100: <input type="number" id="number" />
-            <input type="button" value="ADICIONAR" onClick={adicionar} />
+            <input
+              type="button"
+              value="ADICIONAR"
+              onClick={() => {
+                const numberInput = document.getElementById(
+                  'number'
+                ) as HTMLInputElement;
+                const inputValue = numberInput.value;
+                adicionar(Number(inputValue));
+              }}
+            />
           </p>
-          <select name="lista" id="lista"></select>
+          <div>
+            {Array.from({ length: 100 }, (_, index) => (
+              <label key={index}>
+                <input
+                  type="checkbox"
+                  checked={valores.includes(index + 1)}
+                  onChange={() => toggleValue(index + 1)}
+                />
+                {index + 1}
+              </label>
+            ))}
+          </div>
           <input type="button" value="FINALIZAR" onClick={finalizar} />
         </div>
-        <div id="result"></div>
+        <div id="result">{resultText}</div>
       </section>
       <footer>&copy;daHora</footer>
     </Container>
