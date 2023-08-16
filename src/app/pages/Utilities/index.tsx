@@ -8,8 +8,12 @@ const Container = styled.div`
   width: 100%;
   min-height: 100vh;
   box-sizing: border-box;
-  background-color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
   justify-content: space-between;
+  background: radial-gradient(
+    circle at top right,
+    ${({ theme }) => theme.COLORS.BACKGROUND_700} 0%,
+    ${({ theme }) => theme.COLORS.BACKGROUND_900} 70%
+  );
 
   display: grid;
   place-items: center;
