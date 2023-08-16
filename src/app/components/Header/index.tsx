@@ -19,7 +19,7 @@ export const Container = styled.header`
   padding: 0 80px;
 `;
 interface HeaderProps {
-  children: ReactNode; // This prop will hold the child components
+  children: ReactNode;
 }
 
 export function Header({ children }: HeaderProps): React.ReactElement {
