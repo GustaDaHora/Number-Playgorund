@@ -2,16 +2,24 @@ import React, { useState } from 'react';
 import { Header } from 'src/app/components/Header';
 import styled from 'styled-components';
 
+import Button from 'src/app/components/Button';
+
 const Container = styled.div`
   width: 100%;
   min-height: 100vh;
+  font-weight: 550;
   background: radial-gradient(
     circle at top right,
     ${({ theme }) => theme.COLORS.BACKGROUND_700} 0%,
     ${({ theme }) => theme.COLORS.BACKGROUND_900} 70%
   );
 
+  h1 {
+    text-align: center;
+  }
+
   section {
+    text-align: center;
     position: relative;
     left: 50%;
     transform: translateX(-50%);
@@ -33,6 +41,28 @@ const Container = styled.div`
     width: 100%;
     padding: 3vh;
     margin-top: 0.5rem;
+  }
+
+  .select {
+    margin: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    padding: 5px;
+  }
+
+  .select label {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+  }
+
+  Button {
+    margin-bottom: 1rem;
+  }
+
+  .result-text {
+    white-space: pre-line;
   }
 `;
 
@@ -98,7 +128,7 @@ export function Check(): React.ReactElement {
               }}
             />
           </p>
-          <div>
+          <div className="select">
             {Array.from({ length: 100 }, (_, index) => (
               <label key={index}>
                 <input
@@ -110,9 +140,13 @@ export function Check(): React.ReactElement {
               </label>
             ))}
           </div>
-          <input type="button" value="FINALIZAR" onClick={finalizar} />
+          <Button type="button" onClick={finalizar}>
+            FINALIZAR
+          </Button>
         </div>
-        <div id="result">{resultText}</div>
+        <div id="result" className="result-text">
+          {resultText}
+        </div>
       </section>
       <footer>&copy;daHora</footer>
     </Container>
