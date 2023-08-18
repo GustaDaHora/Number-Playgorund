@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Header } from 'src/app/components/Header';
 import styled from 'styled-components';
+
+import { Header } from 'src/app/components/Header';
+import Input from 'src/app/components/Input';
 
 const Container = styled.div`
   width: 100%;
@@ -24,11 +26,11 @@ const Container = styled.div`
     position: relative;
     left: 50%;
     transform: translate(-50%, 0%);
-    width: 30%;
+    width: 31%;
     padding: 5vh;
     background-color: ${({ theme }) => theme.COLORS.WHITE};
     color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
-    font-weight: 800;
+    font-weight: 700;
     border-radius: 10px;
   }
 
@@ -116,7 +118,7 @@ export function Tables(): React.ReactElement {
       <section>
         <p>
           Numero:{' '}
-          <input
+          <Input
             type="number"
             id="numero"
             value={num}
@@ -125,7 +127,7 @@ export function Tables(): React.ReactElement {
         </p>
         <p>
           Limite:{' '}
-          <input
+          <Input
             type="number"
             id="limit"
             value={limit}
