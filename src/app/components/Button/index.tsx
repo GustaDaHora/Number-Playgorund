@@ -20,6 +20,7 @@ const Button = styled.button`
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
+  margin: 0.7rem;
 
   &:hover {
     box-shadow: rgba(44, 187, 99, 0.35) 0 -25px 18px -14px inset,
