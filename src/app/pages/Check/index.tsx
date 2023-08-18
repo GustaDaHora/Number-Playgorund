@@ -3,16 +3,19 @@ import { Header } from 'src/app/components/Header';
 import styled from 'styled-components';
 
 import Button from 'src/app/components/Button';
+import Input from 'src/app/components/Input';
 
 const Container = styled.div`
   width: 100%;
   min-height: 100vh;
   font-weight: 550;
+  font-size: 17px;
   background: radial-gradient(
     circle at top right,
     ${({ theme }) => theme.COLORS.BACKGROUND_700} 0%,
     ${({ theme }) => theme.COLORS.BACKGROUND_900} 70%
   );
+  overflow-y: auto;
 
   h1 {
     text-align: center;
@@ -25,22 +28,23 @@ const Container = styled.div`
     transform: translateX(-50%);
     width: 50%;
     padding: 5vh;
-    margin: 5vh 0vh;
-    color: black;
-    background-color: whitesmoke;
+    background-color: ${({ theme }) => theme.COLORS.WHITE};
+    color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
+    font-weight: 700;
     border-radius: 10px;
     box-shadow: 4px 4px 4px #0000006b;
+    margin-bottom: 2rem;
   }
 
   footer {
     color: ${({ theme }) => theme.COLORS.WHITE};
     background-color: ${({ theme }) => theme.COLORS.BACKGROUND_800};
     position: absolute;
-    bottom: 0px;
+    bottom: 0;
+    left: 0;
+    right: 0;
     text-align: center;
-    width: 100%;
     padding: 3vh;
-    margin-top: 0.5rem;
   }
 
   .select {
@@ -63,6 +67,10 @@ const Container = styled.div`
 
   .result-text {
     white-space: pre-line;
+
+    > p {
+      margin: 0.3rem 0;
+    }
   }
 `;
 
@@ -115,10 +123,9 @@ export function Check(): React.ReactElement {
       <section>
         <div>
           <p>
-            Numero entre 1 e 100: <input type="number" id="number" />
-            <input
+            Numero entre 1 e 100: <Input type="number" id="number" />
+            <Button
               type="button"
-              value="ADICIONAR"
               onClick={() => {
                 const numberInput = document.getElementById(
                   'number'
@@ -126,7 +133,9 @@ export function Check(): React.ReactElement {
                 const inputValue = numberInput.value;
                 adicionar(Number(inputValue));
               }}
-            />
+            >
+              ADICIONAR
+            </Button>
           </p>
           <div className="select">
             {Array.from({ length: 100 }, (_, index) => (
@@ -145,7 +154,9 @@ export function Check(): React.ReactElement {
           </Button>
         </div>
         <div id="result" className="result-text">
-          {resultText}
+          {resultText.split('\n').map((line, index) => (
+            <p key={index}>{line}</p>
+          ))}
         </div>
       </section>
       <footer>&copy;daHora</footer>
