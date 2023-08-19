@@ -22,18 +22,16 @@ const Container = styled.div`
   }
 
   section {
-    text-align: center;
     position: relative;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, 0%);
     width: 50%;
+    text-align: center;
     padding: 5vh;
     background-color: ${({ theme }) => theme.COLORS.WHITE};
     color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
     font-weight: 700;
     border-radius: 10px;
-    box-shadow: 4px 4px 4px #0000006b;
-    margin-bottom: 2rem;
   }
 
   footer {
@@ -72,6 +70,34 @@ const Container = styled.div`
       margin: 0.3rem 0;
     }
   }
+
+  #option {
+    display: none;
+  }
+  @media (max-width: 768px) {
+    section {
+      width: 80%;
+      padding: 3vh;
+    }
+
+    */ h1 {
+      font-size: 1.5rem;
+    }
+
+    p {
+      font-size: 0.8rem;
+      margin: 1vh 0;
+      display: flex;
+      flex-direction: column;
+    }
+    #option {
+      display: inline;
+    }
+
+    .select {
+      display: none;
+    }
+  }
 `;
 
 export function Check(): React.ReactElement {
@@ -86,6 +112,13 @@ export function Check(): React.ReactElement {
     }
     setResultText('');
   }
+
+  const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedValue = parseInt(event.target.value);
+    if (!isNaN(selectedValue)) {
+      adicionar(selectedValue);
+    }
+  };
 
   function adicionar(num: number): void {
     if (num >= 1 && num <= 100 && !valores.includes(num)) {
@@ -137,6 +170,15 @@ export function Check(): React.ReactElement {
               ADICIONAR
             </Button>
           </p>
+          <select id="option" onChange={(e) => handleOptionChange(e)}>
+            <option value="">Select an option</option>
+            {Array.from({ length: 100 }, (_, index) => (
+              <option key={index} value={index + 1}>
+                {index + 1}
+              </option>
+            ))}
+          </select>
+
           <div className="select">
             {Array.from({ length: 100 }, (_, index) => (
               <label key={index}>
