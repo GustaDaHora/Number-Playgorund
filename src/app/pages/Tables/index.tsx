@@ -26,7 +26,8 @@ const Container = styled.div`
     position: relative;
     left: 50%;
     transform: translate(-50%, 0%);
-    width: 31%;
+    width: 50%;
+    text-align: center;
     padding: 5vh;
     background-color: ${({ theme }) => theme.COLORS.WHITE};
     color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
@@ -46,27 +47,20 @@ const Container = styled.div`
   }
 
   @media (max-width: 768px) {
-    /* Styles for smaller screen sizes (e.g., smartphones) */
     section {
       width: 80%;
       padding: 3vh;
     }
 
-    /* Adjust the font size for smaller screens */
-    h1 {
+    */ h1 {
       font-size: 1.5rem;
     }
 
-    /* Adjust the font size and margin for smaller screens */
     p {
       font-size: 0.8rem;
       margin: 1vh 0;
-    }
-
-    /* Adjust the width and font size for smaller screens */
-    TabuadaSelect {
-      width: 80%;
-      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
     }
   }
 `;
@@ -82,7 +76,6 @@ const ResultContainer = styled.div`
   margin-top: 0.8rem;
 
   @media (max-width: 768px) {
-    /* Adjust the width for smaller screens */
     width: 80%;
   }
 `;
