@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Header } from 'src/app/components/Header';
 import styled from 'styled-components';
 
@@ -7,17 +7,19 @@ import Input from 'src/app/components/Input';
 
 const Container = styled.div`
   width: 100%;
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
-  font-weight: 550;
-  font-size: 17px;
+  box-sizing: border-box;
+  justify-content: space-between;
   background: radial-gradient(
     circle at top right,
     ${({ theme }) => theme.COLORS.BACKGROUND_700} 0%,
     ${({ theme }) => theme.COLORS.BACKGROUND_900} 70%
   );
-  overflow-y: auto;
 
   h1 {
+    color: ${({ theme }) => theme.COLORS.WHITE};
     text-align: center;
   }
 
@@ -37,12 +39,12 @@ const Container = styled.div`
   footer {
     color: ${({ theme }) => theme.COLORS.WHITE};
     background-color: ${({ theme }) => theme.COLORS.BACKGROUND_800};
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    position: relative;
+    bottom: 0px;
     text-align: center;
+    width: 100%;
     padding: 3vh;
+    margin-top: 0.5rem;
   }
 
   .select {
@@ -74,6 +76,18 @@ const Container = styled.div`
   #option {
     display: none;
   }
+
+  .list {
+    background-color: ${({ theme }) => theme.COLORS.WHITE};
+    box-shadow: rgba(44, 187, 99, 0.2) 0 -25px 18px -14px inset,
+      rgba(44, 187, 99, 0.15) 0 1px 2px, rgba(44, 187, 99, 0.15) 0 2px 4px,
+      rgba(44, 187, 99, 0.15) 0 4px 8px, rgba(44, 187, 99, 0.15) 0 8px 16px,
+      rgba(44, 187, 99, 0.15) 0 16px 32px;
+    color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
+    cursor: pointer;
+    height: 2.5vh;
+  }
+
   @media (max-width: 768px) {
     section {
       width: 80%;
@@ -131,14 +145,17 @@ const Select = styled.select`
 `;
 
 export function Check(): React.ReactElement {
-  const [valores, setValores] = useState<number[]>([]);
   const [resultText, setResultText] = useState<string>('');
+  const [selectedOptions, setSelectedOptions] = useState<number[]>([]);
+  const [lastSelectedNumber, setLastSelectedNumber] = useState<number | null>(
+    null
+  );
 
   function toggleValue(value: number): void {
-    if (valores.includes(value)) {
-      setValores(valores.filter((item) => item !== value));
+    if (selectedOptions.includes(value)) {
+      setSelectedOptions(selectedOptions.filter((item) => item !== value));
     } else {
-      setValores([...valores, value]);
+      setSelectedOptions([...selectedOptions, value]);
     }
     setResultText('');
   }
@@ -146,27 +163,34 @@ export function Check(): React.ReactElement {
   const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = parseInt(event.target.value);
     if (!isNaN(selectedValue)) {
-      adicionar(selectedValue);
+      if (selectedOptions.includes(selectedValue)) {
+        setSelectedOptions(
+          selectedOptions.filter((item) => item !== selectedValue)
+        );
+      } else {
+        setSelectedOptions([...selectedOptions, selectedValue]);
+        setLastSelectedNumber(selectedValue);
+      }
     }
   };
 
   function adicionar(num: number): void {
-    if (num >= 1 && num <= 100 && !valores.includes(num)) {
-      setValores([...valores, num]);
-      setResultText('');
+    if (num >= 1 && num <= 100 && !selectedOptions.includes(num)) {
+      setSelectedOptions([...selectedOptions, num]);
+      setLastSelectedNumber(num);
     } else {
       window.alert('Valor inválido');
     }
   }
 
   function finalizar(): void {
-    if (valores.length === 0) {
+    if (selectedOptions.length === 0) {
       window.alert('Adicione um número');
     } else {
-      const total = valores.length;
-      const maior = Math.max(...valores);
-      const menor = Math.min(...valores);
-      const soma = valores.reduce((acc, curr) => acc + curr, 0);
+      const total = selectedOptions.length;
+      const maior = Math.max(...selectedOptions);
+      const menor = Math.min(...selectedOptions);
+      const soma = selectedOptions.reduce((acc, curr) => acc + curr, 0);
       const media = soma / total;
 
       setResultText(
@@ -208,13 +232,19 @@ export function Check(): React.ReactElement {
               </option>
             ))}
           </Select>
-
+          <select className="list" multiple>
+            {lastSelectedNumber !== null && (
+              <option value={lastSelectedNumber}>
+                Número {lastSelectedNumber} foi adicionado!
+              </option>
+            )}
+          </select>
           <div className="select">
             {Array.from({ length: 100 }, (_, index) => (
               <label key={index}>
                 <input
                   type="checkbox"
-                  checked={valores.includes(index + 1)}
+                  checked={selectedOptions.includes(index + 1)}
                   onChange={() => toggleValue(index + 1)}
                 />
                 {index + 1}
