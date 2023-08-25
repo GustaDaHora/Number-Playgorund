@@ -15,46 +15,41 @@ const Container = styled.div`
     ${({ theme }) => theme.COLORS.BACKGROUND_700} 0%,
     ${({ theme }) => theme.COLORS.BACKGROUND_900} 70%
   );
-
-  display: grid;
-  grid-template-rows: auto 1fr;
-  grid-template-columns: 1fr 300px;
-  grid-gap: 20px;
-  height: 100vh;
-  margin: 0;
-
-  > Header {
-    grid-row: 1;
-    grid-column: 1 / span 2;
-    padding: 20px;
-  }
-  > section {
-    text-align: center;
-    grid-row: 2;
-    grid-column: 1;
-    padding: 20px;
+  main {
     display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  > aside {
-    grid-row: 2;
-    grid-column: 2;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    color: #0d100d;
+    > section {
+      text-align: center;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      width: 75%;
+    }
+    > aside {
+      width: 25%;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      color: #0d100d;
+    }
   }
 
+  .headerButton {
+    display: none;
+  }
   @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-    #toggleButton {
+    .headerButton {
       display: block;
     }
-
-    > header,
-    section {
-      grid-column: 1;
+    main {
+      > section {
+        width: 100%;
+        padding: 10px;
+      }
+      > aside {
+        width: 70%;
+        padding: 10px;
+      }
     }
   }
 `;
@@ -83,21 +78,23 @@ export function Cronics(): React.ReactElement {
   return (
     <Container>
       <Header>
-        <Button onClick={toggleAside}>
+        <Button className="headerButton" onClick={toggleAside}>
           <AiOutlineMenu />
         </Button>
       </Header>
-      <section>
-        <LinkButton to="/">Em Breve</LinkButton>
-        <LinkButton to="/">Em Breve</LinkButton>
-        <LinkButton to="/">Em Breve</LinkButton>
-        <LinkButton to="/">Em Breve</LinkButton>
-      </section>
-      {isSideMenuVisible && (
-        <aside>
+      <main>
+        <section>
           <LinkButton to="/">Em Breve</LinkButton>
-        </aside>
-      )}
+          <LinkButton to="/">Em Breve</LinkButton>
+          <LinkButton to="/">Em Breve</LinkButton>
+          <LinkButton to="/">Em Breve</LinkButton>
+        </section>
+        {isSideMenuVisible && (
+          <aside>
+            <LinkButton to="/">ESCREVER</LinkButton>
+          </aside>
+        )}
+      </main>
     </Container>
   );
 }
