@@ -8,6 +8,7 @@ const LinkButton = styled(Link)`
   padding: 1rem;
   font-size: 2rem;
   transition: 1s;
+  text-align: center;
 
   &:hover {
     color: red;
