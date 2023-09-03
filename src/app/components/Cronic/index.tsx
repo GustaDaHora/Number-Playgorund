@@ -27,7 +27,7 @@ const Container = styled.div`
   }
 `;
 
-function ToggleTextComponent() {
+function TextComponent() {
   const [isTextVisible, setIsTextVisible] = useState(false);
   const [fontSize, setFontSize] = useState(20);
 
@@ -97,4 +97,4 @@ function ToggleTextComponent() {
   );
 }
 
-export default ToggleTextComponent;
+export default TextComponent;
