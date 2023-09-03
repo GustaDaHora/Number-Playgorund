@@ -6,9 +6,9 @@ export default {
 
     WHITE: '#c2fbd7',
 
-    GREEN_100: '##45BF55',
+    GREEN_100: '#45BF55',
     GREEN_200: '#168039',
-    GREEN_300: '##044D29',
+    GREEN_300: '#044D29',
 
     RED: '#FF002E',
   },
