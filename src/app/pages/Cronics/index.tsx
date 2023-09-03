@@ -27,13 +27,13 @@ const Container = styled.div`
     }
     > aside {
       width: 25%;
+      text-align: center;
       padding: 20px;
       display: flex;
       flex-direction: column;
-      color: #0d100d;
+      gap: 1rem;
     }
   }
-
   .headerButton {
     display: none;
   }
@@ -91,7 +91,10 @@ export function Cronics(): React.ReactElement {
         </section>
         {isSideMenuVisible && (
           <aside>
-            <LinkButton to="/">ESCREVER</LinkButton>
+            <LinkButton to="/">Escrever</LinkButton>
+            <LinkButton style={{ fontSize: '1.66rem' }} to="/">
+              Minhas Cronicas
+            </LinkButton>
           </aside>
         )}
       </main>
