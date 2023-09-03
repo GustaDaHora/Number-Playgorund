@@ -5,6 +5,7 @@ import { AiOutlineMenu } from 'react-icons/ai';
 import LinkButton from 'src/app/components/Link';
 import Button from 'src/app/components/Button';
 import { Header } from 'src/app/components/Header';
+import TextComponent from 'src/app/components/Cronic';
 
 const Container = styled.div`
   width: 100%;
@@ -84,10 +85,15 @@ export function Cronics(): React.ReactElement {
       </Header>
       <main>
         <section>
-          <LinkButton to="/">Em Breve</LinkButton>
-          <LinkButton to="/">Em Breve</LinkButton>
-          <LinkButton to="/">Em Breve</LinkButton>
-          <LinkButton to="/">Em Breve</LinkButton>
+          <TextComponent />
+          <TextComponent />
+          <TextComponent />
+          <TextComponent />
+          <TextComponent />
+          <TextComponent />
+          <TextComponent />
+          <TextComponent />
+          <TextComponent />
         </section>
         {isSideMenuVisible && (
           <aside>
