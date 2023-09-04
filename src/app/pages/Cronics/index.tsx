@@ -86,14 +86,6 @@ export function Cronics(): React.ReactElement {
       <main>
         <section>
           <TextComponent />
-          <TextComponent />
-          <TextComponent />
-          <TextComponent />
-          <TextComponent />
-          <TextComponent />
-          <TextComponent />
-          <TextComponent />
-          <TextComponent />
         </section>
         {isSideMenuVisible && (
           <aside>

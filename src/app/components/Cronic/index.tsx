@@ -63,35 +63,7 @@ function TextComponent() {
         <Button onClick={decreaseFontSize}>-</Button>
       </div>
       {isTextVisible && (
-        <p style={{ fontSize: `${fontSize}px`, margin: '5px' }}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut quo
-          deserunt magni quia molestias. Voluptatibus quia accusamus id
-          inventore eaque labore possimus non tenetur a! Neque culpa maiores
-          ipsa corrupti. Lorem, ipsum dolor sit amet consectetur adipisicing
-          elit. Perferendis repellat, in, nihil dolor commodi nam ipsum unde
-          minima ipsa autem nulla aperiam dignissimos consequatur rem quam!
-          Nihil dolor consequuntur provident! Lorem ipsum dolor sit amet
-          consectetur adipisicing elit. Quis consectetur fugiat recusandae quia
-          id, porro dicta laborum culpa, vel necessitatibus sed optio hic,
-          labore perspiciatis praesentium quae dolorem cumque ipsum! Lorem ipsum
-          dolor sit amet consectetur, adipisicing elit. Ipsum voluptas
-          repellendus ipsa perferendis maxime mollitia, esse quidem? Enim,
-          doloribus. Neque nam possimus amet impedit architecto distinctio
-          deleniti ea itaque temporibus. Lorem ipsum dolor sit amet consectetur,
-          adipisicing elit. Sapiente voluptatum nostrum, voluptatem dolorem
-          alias a debitis aliquid dolorum, aut voluptates incidunt nisi
-          doloremque culpa cupiditate dolores, quod perspiciatis perferendis
-          facere. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cum
-          vitae a velit commodi provident voluptatibus cupiditate doloremque
-          error excepturi nulla ut voluptatum placeat, nostrum quas ea ullam
-          accusantium maiores ab. Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Fugit dolorum distinctio natus exercitationem sed
-          numquam similique vel impedit repellat autem? Veritatis placeat vero
-          earum deserunt quos autem quae quibusdam quia? Lorem ipsum dolor sit
-          amet consectetur adipisicing elit. Dicta quas mollitia tempore,
-          possimus aperiam porro nostrum provident, explicabo laborum non, alias
-          totam distinctio consequatur minima id itaque illum quae natus?
-        </p>
+        <p style={{ fontSize: `${fontSize}px`, margin: '5px' }}> </p>
       )}
     </Container>
   );
