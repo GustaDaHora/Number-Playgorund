@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-
 import Button from '../Button';
+// import prisma from '../../../../lib/prisma';
 
 const Container = styled.div`
   border: 3px solid ${({ theme }) => theme.COLORS.WHITE};
@@ -28,6 +28,21 @@ const Container = styled.div`
 `;
 
 function TextComponent() {
+  // const [data, setData] = useState([]);
+
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const result = await getData();
+  //     setData(result);
+  //   }
+  //   fetchData();
+  // }, []);
+
+  // async function getData() {
+  //   const data = await prisma?.post.findMany();
+  //   return data;
+  // }
+
   const [isTextVisible, setIsTextVisible] = useState(false);
   const [fontSize, setFontSize] = useState(20);
 
