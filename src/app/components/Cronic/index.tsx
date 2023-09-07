@@ -83,14 +83,18 @@ function TextComponent() {
         maxHeight: isTextVisible ? '100rem' : '6rem',
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'center' }}>
-        <Button onClick={increaseFontSize}>+</Button>
-        <h1>Hover to Toggle Text</h1>
-        <Button onClick={decreaseFontSize}>-</Button>
-      </div>
-      {isTextVisible && (
-        <p style={{ fontSize: `${fontSize}px`, margin: '5px' }}> </p>
-      )}
+      {data.map((item) => (
+        <div>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <Button onClick={increaseFontSize}>+</Button>
+            <h1>{item.title}</h1>
+            <Button onClick={decreaseFontSize}>-</Button>
+          </div>
+          <p style={{ fontSize: `${fontSize}px`, margin: '5px' }}>
+            {item.content}
+          </p>
+        </div>
+      ))}
     </Container>
   );
 }
