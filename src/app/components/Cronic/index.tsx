@@ -36,11 +36,15 @@ function TextComponent() {
 
   useEffect(() => {
     async function fetchData() {
-      const result = await getData();
-      if (result) {
-        setData(result);
-      } else {
-        setData([]);
+      try {
+        const result = await getData();
+        if (result) {
+          setData(result);
+        } else {
+          setData([]);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
       }
     }
     fetchData();
@@ -84,7 +88,7 @@ function TextComponent() {
       }}
     >
       {data.map((item) => (
-        <div>
+        <div key={item.id}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <Button onClick={increaseFontSize}>+</Button>
             <h1>{item.title}</h1>
