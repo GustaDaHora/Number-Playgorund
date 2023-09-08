@@ -30,37 +30,47 @@ const Container = styled.div`
 function TextComponent() {
   const [isTextVisible, setIsTextVisible] = useState(false);
   const [fontSize, setFontSize] = useState(20);
-  const [data, setData] = useState<
-    { id: number; title: string; content: string | null }[]
-  >([]);
+  const [data, setData] = useState<PostData[]>([]);
+
+  interface PostData {
+    id: number;
+    title: string;
+    content: string | null;
+  }
 
   useEffect(() => {
     async function fetchData() {
-      try {
-        const result = await getData();
-        if (result) {
-          setData(result);
-        } else {
-          setData([]);
-        }
-      } catch (error) {
-        console.error('Error fetching data:', error);
+      const result = await getData();
+      if (result) {
+        setData(result);
+      } else {
+        setData([]);
       }
     }
     fetchData();
   }, []);
 
-  async function getData() {
-    const data = await prisma?.post.findMany({
-      select: {
-        id: true,
-        title: true,
-        content: true,
-      },
-    });
-    return data;
-  }
+  async function getData(): Promise<PostData[]> {
+    try {
+      if (!prisma) {
+        throw new Error('Prisma is not initialized');
+      }
 
+      const posts = await prisma.post.findMany({
+        select: {
+          id: true,
+          title: true,
+          content: true,
+        },
+      });
+
+      console.log(posts);
+      return posts;
+    } catch (error) {
+      console.error('Error fetching posts:', error);
+      return [];
+    }
+  }
   const handleMouseEnter = () => {
     setIsTextVisible(true);
   };
