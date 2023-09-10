@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Button from '../Button';
-import prisma from '../../../../lib/prisma';
+import { PrismaClient } from '@prisma/client';
+const prisma = new PrismaClient();
 
 const Container = styled.div`
   border: 3px solid ${({ theme }) => theme.COLORS.WHITE};
@@ -30,47 +31,20 @@ const Container = styled.div`
 function TextComponent() {
   const [isTextVisible, setIsTextVisible] = useState(false);
   const [fontSize, setFontSize] = useState(20);
-  const [data, setData] = useState<PostData[]>([]);
-
-  interface PostData {
-    id: number;
-    title: string;
-    content: string | null;
-  }
+  const [posts, setPosts] = useState<any[]>([]);
 
   useEffect(() => {
-    async function fetchData() {
-      const result = await getData();
-      if (result) {
-        setData(result);
-      } else {
-        setData([]);
-      }
-    }
-    fetchData();
-  }, []);
-
-  async function getData(): Promise<PostData[]> {
-    try {
-      if (!prisma) {
-        throw new Error('Prisma is not initialized');
-      }
-
-      const posts = await prisma.post.findMany({
+    prisma.post
+      .findMany({
         select: {
           id: true,
           title: true,
-          content: true,
         },
-      });
+      })
+      .then((result) => setPosts(result))
+      .catch((error) => console.error(error));
+  }, []);
 
-      console.log(posts);
-      return posts;
-    } catch (error) {
-      console.error('Error fetching posts:', error);
-      return [];
-    }
-  }
   const handleMouseEnter = () => {
     setIsTextVisible(true);
   };
@@ -97,16 +71,16 @@ function TextComponent() {
         maxHeight: isTextVisible ? '100rem' : '6rem',
       }}
     >
-      {data.map((item) => (
-        <div key={item.id}>
+      {posts.map((post) => (
+        <div key={post.id}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <Button onClick={increaseFontSize}>+</Button>
-            <h1>{item.title}</h1>
-            <Button onClick={decreaseFontSize}>-</Button>
+            {/* <Button onClick={increaseFontSize}>+</Button>
+            <Button onClick={decreaseFontSize}>-</Button> */}
+            <h1>{post.title}</h1>
           </div>
-          <p style={{ fontSize: `${fontSize}px`, margin: '5px' }}>
+          {/* <p style={{ fontSize: `${fontSize}px`, margin: '5px' }}>
             {item.content}
-          </p>
+          </p> */}
         </div>
       ))}
     </Container>
