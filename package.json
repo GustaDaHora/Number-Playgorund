@@ -26,6 +26,7 @@
     "@nx/eslint-plugin": "16.5.1",
     "@nx/js": "16.5.1",
     "@nx/linter": "16.5.1",
+    "@nx/next": "^16.8.1",
     "@nx/react": "16.5.1",
     "@nx/vite": "16.5.1",
     "@nx/workspace": "16.5.1",
