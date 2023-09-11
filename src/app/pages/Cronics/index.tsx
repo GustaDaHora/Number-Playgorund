@@ -5,7 +5,10 @@ import { AiOutlineMenu } from 'react-icons/ai';
 import LinkButton from 'src/app/components/Link';
 import Button from 'src/app/components/Button';
 import { Header } from 'src/app/components/Header';
-import TextComponent from 'src/app/components/Cronic';
+import CronicList from 'src/app/components/Cronic';
+
+import { GetServerSideProps } from 'next';
+import { PrismaClient, Post } from '@prisma/client';
 
 const Container = styled.div`
   width: 100%;
@@ -55,7 +58,11 @@ const Container = styled.div`
   }
 `;
 
-export function Cronics(): React.ReactElement {
+interface CronicsProps {
+  posts: Post[];
+}
+
+export function Cronics({ posts }: CronicsProps): React.ReactElement {
   const [isSideMenuVisible, setIsSideMenuVisible] = useState<boolean>(true);
 
   function toggleAside() {
@@ -76,6 +83,7 @@ export function Cronics(): React.ReactElement {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
   return (
     <Container>
       <Header>
@@ -85,7 +93,7 @@ export function Cronics(): React.ReactElement {
       </Header>
       <main>
         <section>
-          <TextComponent />
+          <CronicList posts={posts} />
         </section>
         {isSideMenuVisible && (
           <aside>
@@ -99,3 +107,28 @@ export function Cronics(): React.ReactElement {
     </Container>
   );
 }
+
+export const getServerSideProps: GetServerSideProps<
+  CronicsProps
+> = async () => {
+  const prisma = new PrismaClient();
+
+  try {
+    const posts: Post[] = await prisma.post.findMany();
+
+    return {
+      props: {
+        posts,
+      },
+    };
+  } catch (error) {
+    console.error('Error fetching posts:', error);
+    return {
+      props: {
+        posts: [],
+      },
+    };
+  } finally {
+    prisma.$disconnect();
+  }
+};
