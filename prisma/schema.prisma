@@ -16,14 +16,14 @@ model Post {
   content   String?
   published Boolean    @default(false)
   author    User?      @relation(fields: [authorId], references: [id])
-  authorId  Int?       @default(0)
+  authorId  Int?       
 }
 
 model User {
   id        Int        @id @default(autoincrement())
-  name          String?   @unique
-  createdAt     DateTime  @default(now()) @map(name: "created_at")
-  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
-  posts         Post[]
+  name      String     @unique
+  createdAt DateTime    @default(now()) @map(name: "created_at")
+  updatedAt DateTime    @updatedAt @map(name: "updated_at")
+  posts     Post[]      
   @@map(name: "users")
 }
