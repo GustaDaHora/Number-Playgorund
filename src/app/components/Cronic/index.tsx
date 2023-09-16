@@ -6,7 +6,7 @@ interface Post {
 }
 
 interface CronicListProps {
-  posts: Post[] | undefined; // Make sure to allow for undefined
+  posts?: Post[] | undefined; // Make sure to allow for undefined
 }
 
 export default function CronicList({
