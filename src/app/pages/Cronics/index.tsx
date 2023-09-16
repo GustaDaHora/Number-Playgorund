@@ -58,11 +58,7 @@ const Container = styled.div`
   }
 `;
 
-interface CronicsProps {
-  posts: Post[];
-}
-
-export function Cronics({ posts }: CronicsProps): React.ReactElement {
+const Cronics: React.FC = () => {
   const [isSideMenuVisible, setIsSideMenuVisible] = useState<boolean>(true);
 
   function toggleAside() {
@@ -93,7 +89,7 @@ export function Cronics({ posts }: CronicsProps): React.ReactElement {
       </Header>
       <main>
         <section>
-          <CronicList posts={posts} />
+          <CronicList />
         </section>
         {isSideMenuVisible && (
           <aside>
@@ -106,29 +102,31 @@ export function Cronics({ posts }: CronicsProps): React.ReactElement {
       </main>
     </Container>
   );
-}
-
-export const getServerSideProps: GetServerSideProps<
-  CronicsProps
-> = async () => {
-  const prisma = new PrismaClient();
-
-  try {
-    const posts: Post[] = await prisma.post.findMany();
-
-    return {
-      props: {
-        posts,
-      },
-    };
-  } catch (error) {
-    console.error('Error fetching posts:', error);
-    return {
-      props: {
-        posts: [],
-      },
-    };
-  } finally {
-    prisma.$disconnect();
-  }
 };
+
+// export const getServerSideProps: GetServerSideProps<
+//   CronicsProps
+// > = async () => {
+//   const prisma = new PrismaClient();
+
+//   try {
+//     const posts: Post[] = await prisma.post.findMany();
+
+//     return {
+//       props: {
+//         posts,
+//       },
+//     };
+//   } catch (error) {
+//     console.error('Error fetching posts:', error);
+//     return {
+//       props: {
+//         posts: [],
+//       },
+//     };
+//   } finally {
+//     prisma.$disconnect();
+//   }
+// };
+
+export default Cronics;
