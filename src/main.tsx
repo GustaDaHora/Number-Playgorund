@@ -1,18 +1,24 @@
-import React from 'react';
-import { createRoot } from 'react-dom/client';
+import { StrictMode } from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import ReactDOM from 'react-dom/client';
+
 import theme from './app/styles/theme';
 import GlobalStyles from './app/styles/global';
 import { ThemeProvider } from 'styled-components';
-import { Routes } from './app/app';
 
-const rootElement = document.getElementById('root')!;
-const root = createRoot(rootElement);
+import App from './app/app';
+
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement
+);
 
 root.render(
-  <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <GlobalStyles />
-      <Routes />
-    </ThemeProvider>
-  </React.StrictMode>
+  <StrictMode>
+    <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <GlobalStyles />
+        <App />
+      </ThemeProvider>
+    </BrowserRouter>
+  </StrictMode>
 );
