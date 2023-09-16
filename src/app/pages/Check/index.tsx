@@ -144,7 +144,7 @@ const Select = styled.select`
   }
 `;
 
-export function Check(): React.ReactElement {
+const Check: React.FC = () => {
   const [resultText, setResultText] = useState<string>('');
   const [selectedOptions, setSelectedOptions] = useState<number[]>([]);
   const [lastSelectedNumber, setLastSelectedNumber] = useState<number | null>(
@@ -264,4 +264,6 @@ export function Check(): React.ReactElement {
       <footer>&copy;daHora</footer>
     </Container>
   );
-}
+};
+
+export default Check;

@@ -34,7 +34,7 @@ const Container = styled.div`
   }
 `;
 
-export function Utilities(): React.ReactElement {
+const Utilities: React.FC = () => {
   return (
     <Container>
       <Header children={undefined} />
@@ -45,4 +45,6 @@ export function Utilities(): React.ReactElement {
       </div>
     </Container>
   );
-}
+};
+
+export default Utilities;

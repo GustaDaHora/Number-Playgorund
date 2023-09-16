@@ -32,7 +32,7 @@ const Container = styled.div`
   }
 `;
 
-export function Main(): React.ReactElement {
+const Main: React.FC = () => {
   return (
     <Container>
       <div>
@@ -43,4 +43,6 @@ export function Main(): React.ReactElement {
       </div>
     </Container>
   );
-}
+};
+
+export default Main;

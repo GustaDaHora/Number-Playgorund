@@ -80,7 +80,7 @@ const ResultContainer = styled.div`
   }
 `;
 
-export function Tables(): React.ReactElement {
+const Tables: React.FC = () => {
   const [num, setNum] = useState<number | string>('');
   const [limit, setLimit] = useState<number | string>('50');
 
@@ -132,4 +132,6 @@ export function Tables(): React.ReactElement {
       <footer>&copy;daHora</footer>
     </Container>
   );
-}
+};
+
+export default Tables;
