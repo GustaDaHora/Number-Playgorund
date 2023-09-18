@@ -23,6 +23,7 @@
     "src/**/*.jsx",
     "src/**/*.ts",
     "src/**/*.tsx",
-    "src/prisma/schema.prisma"
+    "src/prisma/schema.prisma",
+    "global.d.ts"
   ]
 }
