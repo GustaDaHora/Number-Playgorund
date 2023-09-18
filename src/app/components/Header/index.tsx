@@ -14,9 +14,10 @@ export const Container = styled.header`
   border-bottom-color: ${({ theme }) => theme.COLORS.BACKGROUND_800};
 
   display: flex;
-  justify-content: space-between;
-
-  padding: 0 80px;
+  justify-content: center;
+  align-items: center;
+  gap: 1vh;
+  padding: 20px 0;
 `;
 interface HeaderProps {
   children: ReactNode;
