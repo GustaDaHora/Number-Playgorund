@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
+import LinkButton from 'src/app/components/Link';
+
 // Styled-components styles
 const Container = styled.div`
   display: flex;
@@ -11,30 +13,13 @@ const Container = styled.div`
   height: 100vh;
 `;
 
-const Button = styled.button`
-  padding: 10px 20px;
-  font-size: 1.2rem;
-  margin: 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  background-color: #007bff;
-  color: #fff;
-
-  &:hover {
-    background-color: #0056b3;
-  }
-`;
-
 const Home: React.FC = () => {
   return (
     <Container>
-      <Link to="/main">
-        <Button>Main Page</Button>
-      </Link>
-      <Link to="/signup">
-        <Button>Sign Up</Button>
-      </Link>
+      <LinkButton to="/signup">Sign Up</LinkButton>
+      <LinkButton style={{ marginTop: '5px' }} to="/main">
+        Main Page
+      </LinkButton>
     </Container>
   );
 };

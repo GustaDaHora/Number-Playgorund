@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import Button from 'src/app/components/Button';
+import Input from 'src/app/components/Input';
+
 // Styled-components styles
 const Container = styled.div`
   display: flex;
@@ -19,35 +22,12 @@ const SignUpForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 300px;
-  border: 1px solid #ccc;
+  width: 30%;
+  border: 8px solid ${({ theme }) => theme.COLORS.BACKGROUND_700};
   padding: 20px;
   border-radius: 5px;
-  background-color: #fff;
+  background-color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-`;
-
-const Input = styled.input`
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-`;
-
-const Button = styled.button`
-  padding: 10px 20px;
-  font-size: 1.2rem;
-  margin-top: 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  background-color: #007bff;
-  color: #fff;
-
-  &:hover {
-    background-color: #0056b3;
-  }
 `;
 
 const SignUpPage: React.FC = () => {
@@ -56,7 +36,6 @@ const SignUpPage: React.FC = () => {
       <Title>Sign Up</Title>
       <SignUpForm>
         <Input type="text" placeholder="Full Name" />
-        <Input type="email" placeholder="Email" />
         <Input type="password" placeholder="Password" />
         <Button>Sign Up</Button>
       </SignUpForm>
