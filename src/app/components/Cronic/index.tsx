@@ -1,22 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Post } from '@prisma/client';
 
-interface Post {
-  id: number;
-  title: string;
-}
-
-interface CronicListProps {
-  posts?: Post[] | undefined; // Make sure to allow for undefined
-}
-
-export default function CronicList({
-  posts,
-}: CronicListProps): React.ReactElement {
-  // Check if 'posts' is undefined or null before mapping over it
-  if (!posts) {
-    return <div>No posts available</div>;
-  }
-
+const CronicList: React.FC = () => {
+  const [posts, setPosts] = useState<Post[]>([]);
   return (
     <div>
       <h2>Posts</h2>
@@ -27,4 +13,6 @@ export default function CronicList({
       </ul>
     </div>
   );
-}
+};
+
+export default CronicList;
