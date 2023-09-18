@@ -5,10 +5,6 @@ import { AiOutlineMenu } from 'react-icons/ai';
 import LinkButton from 'src/app/components/Link';
 import Button from 'src/app/components/Button';
 import { Header } from 'src/app/components/Header';
-import CronicList from 'src/app/components/Cronic';
-
-import { GetServerSideProps } from 'next';
-import { PrismaClient, Post } from '@prisma/client';
 
 const Container = styled.div`
   width: 100%;
@@ -64,6 +60,7 @@ const Cronics: React.FC = () => {
   function toggleAside() {
     setIsSideMenuVisible((prevIsVisible) => !prevIsVisible);
   }
+
   useEffect(() => {
     const screenWidth = window.innerWidth;
     setIsSideMenuVisible(screenWidth > 768);
@@ -83,14 +80,13 @@ const Cronics: React.FC = () => {
   return (
     <Container>
       <Header>
+        <LinkButton to="/signup">Sign Up</LinkButton>
         <Button className="headerButton" onClick={toggleAside}>
           <AiOutlineMenu />
         </Button>
       </Header>
       <main>
-        <section>
-          <CronicList />
-        </section>
+        <section></section>
         {isSideMenuVisible && (
           <aside>
             <LinkButton to="/">Escrever</LinkButton>
@@ -103,30 +99,5 @@ const Cronics: React.FC = () => {
     </Container>
   );
 };
-
-// export const getServerSideProps: GetServerSideProps<
-//   CronicsProps
-// > = async () => {
-//   const prisma = new PrismaClient();
-
-//   try {
-//     const posts: Post[] = await prisma.post.findMany();
-
-//     return {
-//       props: {
-//         posts,
-//       },
-//     };
-//   } catch (error) {
-//     console.error('Error fetching posts:', error);
-//     return {
-//       props: {
-//         posts: [],
-//       },
-//     };
-//   } finally {
-//     prisma.$disconnect();
-//   }
-// };
 
 export default Cronics;
