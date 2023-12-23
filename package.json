@@ -1,12 +1,11 @@
 {
   "name": "dahora-s-ecosystem",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "license": "MIT",
   "scripts": {
     "start": "nx serve",
     "build": "nx build",
-    "test": "nx test",
-    "postinstall": "prisma generate"
+    "test": "nx test"
   },
   "private": true,
   "dependencies": {
