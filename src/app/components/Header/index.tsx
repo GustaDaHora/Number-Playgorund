@@ -1,7 +1,6 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 import { BiArrowBack } from 'react-icons/bi';
-
 import LinkButton from '../Link';
 
 export const Container = styled.header`
@@ -27,7 +26,7 @@ export function Header({ children }: HeaderProps): React.ReactElement {
   return (
     <Container>
       {' '}
-      <LinkButton to="/main">
+      <LinkButton to="/utilities">
         <BiArrowBack />
       </LinkButton>
       {children}
